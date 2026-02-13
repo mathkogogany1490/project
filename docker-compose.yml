@@ -52,11 +52,12 @@
       ports:
         - "80:80"
       volumes:
-        - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+        - ${PWD}/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       depends_on:
         - frontend
         - backend
       restart: always
+
 
 
   volumes:
