@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         COMPOSE_PROJECT_NAME = "project"
+        DOCKER_BUILDKIT = "0"   // 🔥 buildx 비활성화 (안정성)
     }
 
     stages {
@@ -38,13 +39,24 @@ EOF
                 set -e
                 echo "🚀 Deploy start"
 
-                docker-compose down || true
-                docker-compose build --no-cache
-                docker-compose up -d
+                docker compose down || true
+                docker compose build --no-cache
+                docker compose up -d
+
+                docker compose ps
 
                 echo "✅ Deploy finished"
                 '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo "🎉 Deployment Success"
+        }
+        failure {
+            echo "❌ Deployment Failed"
         }
     }
 }
