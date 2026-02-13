@@ -1,0 +1,11 @@
+docker compose up -d --build
+
+docker compose down --rmi all -v
+
+
+docker ps
+
+
+docker compose logs frontend
+docker compose logs backend
+docker compose logs nginx
